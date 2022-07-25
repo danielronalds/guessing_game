@@ -1,6 +1,13 @@
+use clap::Parser;
 use rand::Rng;
 use std::cmp::Ordering;
 use std::io;
+
+/// The number of guesses the player is allowed
+#[derive(Parser)]
+struct CliArgs {
+    max_guesses: u32,
+}
 
 fn main() {
     println!("Guess the number!");
@@ -8,7 +15,7 @@ fn main() {
     // Adding in a max number of guesses
     let mut num_of_guesses = 1;
     
-    let max_guesses = 10;
+    let max_guesses = CliArgs::parse().max_guesses + 1;
 
     let secret_number = rand::thread_rng().gen_range(1..=100); // inclusive on
                                                                // both lower &
