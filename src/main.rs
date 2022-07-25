@@ -5,14 +5,16 @@ use std::io;
 fn main() {
     println!("Guess the number!");
   
-    // Adding in a guess counter
-    let mut num_of_guess = 1;
+    // Adding in a max number of guesses
+    let mut num_of_guesses = 1;
+    
+    let max_guesses = 10;
 
     let secret_number = rand::thread_rng().gen_range(1..=100); // inclusive on
                                                                // both lower &
                                                                // upper bounds
     
-    loop {
+    while num_of_guesses < max_guesses {
         println!("Please input your guess.");
      
          let mut guess = String::new();
@@ -47,17 +49,22 @@ fn main() {
          match guess.cmp(&secret_number) {
              Ordering::Less => {
                  println!("Too small!"); // Refered to as an arm
-                 num_of_guess = num_of_guess + 1;
+                 num_of_guesses = num_of_guesses + 1;
              } 
              Ordering::Greater => {
                  println!("Too big!");
-                 num_of_guess = num_of_guess + 1;
+                 num_of_guesses = num_of_guesses + 1;
              }
              Ordering::Equal => {
-                 println!("You win in {num_of_guess} guesses!");
+                 println!("You win in {num_of_guesses} guesses!");
                  break;
              }
 
          }
+    }
+
+    // If the player runs out of guesses display a losing message
+    if num_of_guesses == max_guesses {
+        println!("You lose! the number was {secret_number}");
     }
 }
