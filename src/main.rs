@@ -4,7 +4,10 @@ use std::io;
 
 fn main() {
     println!("Guess the number!");
-   
+  
+    // Adding in a guess counter
+    let mut num_of_guess = 1;
+
     let secret_number = rand::thread_rng().gen_range(1..=100); // inclusive on
                                                                // both lower &
                                                                // upper bounds
@@ -42,10 +45,16 @@ fn main() {
      
          // match experions are made out of arms, this one has 3
          match guess.cmp(&secret_number) {
-             Ordering::Less => println!("Too small!"), // Refered to as an arm
-             Ordering::Greater => println!("Too big!"),
+             Ordering::Less => {
+                 println!("Too small!"); // Refered to as an arm
+                 num_of_guess = num_of_guess + 1;
+             } 
+             Ordering::Greater => {
+                 println!("Too big!");
+                 num_of_guess = num_of_guess + 1;
+             }
              Ordering::Equal => {
-                 println!("You win!");
+                 println!("You win in {num_of_guess} guesses!");
                  break;
              }
 
