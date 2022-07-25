@@ -9,7 +9,6 @@ fn main() {
                                                                // both lower &
                                                                // upper bounds
     
-    println!("The secret number is: {secret_number}");
     loop {
         println!("Please input your guess.");
      
@@ -29,11 +28,15 @@ fn main() {
          // Despite already having a var named guess, rust lets us reuse the 
          // name shadowing the previous value of guess with a new one. This is 
          // instead of using two different vars
-         let guess: u32 = guess.trim().parse().expect("Please type a number!");
+         // let guess: u32 = guess.trim().parse().expect("Please type a number!");
          // trim() on a string removes whitespace and \n at the beginning & end
          // : after a var name tells rust we'll annotate the var's type.
          // parse(), like read_line(), returns a Result type, so we'll handle
          // it with .expect()
+         let guess: u32 = match guess.trim().parse() {
+             Ok(num) => num,
+             Err(_) => continue, // the _ means catch all error values
+         }; // More advanced error handling
      
          println!("You guessed: {guess}");
      
