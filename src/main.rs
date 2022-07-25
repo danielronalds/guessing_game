@@ -5,7 +5,8 @@ use std::io;
 
 /// The number of guesses the player is allowed
 #[derive(Parser)]
-struct CliArgs {
+struct Args {
+    /// The number of guesses the player has to get the number in
     max_guesses: u32,
 }
 
@@ -15,7 +16,7 @@ fn main() {
     // Adding in a max number of guesses
     let mut num_of_guesses = 1;
     
-    let max_guesses = CliArgs::parse().max_guesses + 1;
+    let max_guesses = Args::parse().max_guesses + 1;
 
     let secret_number = rand::thread_rng().gen_range(1..=100); // inclusive on
                                                                // both lower &
